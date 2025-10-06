@@ -426,7 +426,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local self = Arguments[1]
 	local caller = getcallingscript()
     local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not IsCWMelee then
+    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client"--[[ and not IsCWMelee]] then
         if Method == "Raycast" then
             if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
                 local A_Origin = Arguments[2]
