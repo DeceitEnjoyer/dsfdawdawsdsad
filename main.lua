@@ -76,16 +76,30 @@ fov_circle.ZIndex = 999
 fov_circle.Transparency = 1
 fov_circle.Color = Color3.fromRGB(54, 57, 241)
 
+local currentWeapon
+
 function IsWeaponMelee(Weapon)
 	return game:GetService"ReplicatedStorage".Weapons:FindFirstChild(Weapon):FindFirstChild("Melee") ~= nil
 end
 
-function GetCurrentWeapon()
-	if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Gun") then
-		return LocalPlayer.Character.Gun.Boop.Value
-	end
-	return nil
+function GetCW(char)
+	char.ChildAdded:Connect(function(ch)
+		if ch.Name == "Gun" then
+			local val = ch.Boop.Value
+			currentWeapon = val, IsWeaponMelee(val)
+		end
+	end)
 end
+if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Gun") then
+	local val = LocalPlayer.Character.Gun.Boop.Value
+	currentWeapon = val, IsWeaponMelee(val)
+	GetCW(LocalPlayer.Character)
+elseif LocalPlayer.Character then
+	GetCW(LocalPlayer.Character)
+end
+LocalPlayer.CharacterAdded:Connect(function(c)
+	GetCW(c)
+end)
 
 local ExpectedArguments = {
     FindPartOnRayWithIgnoreList = {
@@ -406,12 +420,8 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local self = Arguments[1]
 	local caller = getcallingscript()
     local chance = CalculateChance(SilentAimSettings.HitChance)
-	local currWeapon = GetCurrentWeapon()
-	if not currWeapon then return oldNamecall(...) end
-	local iwm = IsWeaponMelee(currWeapon)
-	print(currWeapon)
-	print(iwm)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not iwm then
+	local cw, im = currentWeapon
+    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not im then
         if Method == "Raycast" then
             if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
                 local A_Origin = Arguments[2]
