@@ -80,6 +80,13 @@ function IsWeaponMelee(Weapon)
 	return game:GetService"ReplicatedStorage".Weapons:FindFirstChild(Weapon):FindFirstChild("Melee") ~= nil
 end
 
+function GetCurrentWeapon()
+	if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Gun") then
+		return LocalPlayer.Character.Gun.Boop.Value
+	end
+	return nil
+end
+
 local ExpectedArguments = {
     FindPartOnRayWithIgnoreList = {
         ArgCountRequired = 3,
@@ -399,9 +406,8 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local self = Arguments[1]
 	local caller = getcallingscript()
     local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" then
+    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not IsWeaponMelee(GetCurrentWeapon()) then
         if Method == "Raycast" then
-            print(debug.traceback())
             if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
                 local A_Origin = Arguments[2]
 
