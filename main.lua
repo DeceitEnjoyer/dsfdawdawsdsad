@@ -38,6 +38,7 @@ local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 local HttpService = game:GetService("HttpService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
@@ -79,7 +80,10 @@ fov_circle.Color = Color3.fromRGB(54, 57, 241)
 local currentWeapon
 
 function IsWeaponMelee(Weapon)
-	return game:GetService"ReplicatedStorage".Weapons:FindFirstChild(Weapon):FindFirstChild("Melee") ~= nil
+	if not ReplicatedStorage then warn("No replicated storage found.") end
+	if not ReplicatedStorage.Weapons then warn("No weapons found.") end
+	if not ReplicatedStorage.Weapons:FindFirstChild(Weapon) then warn("No weapon folder found.") end
+	return ReplicatedStorage.Weapons:FindFirstChild(Weapon):FindFirstChild("Melee") ~= nil
 end
 
 function GetCW(char)
