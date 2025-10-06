@@ -85,7 +85,7 @@ end
 function GetCW(char)
 	char.ChildAdded:Connect(function(ch)
 		if ch.Name == "Gun" then
-			local val = ch.Boop.Value
+			local val = ch:WaitForChild("Boop", 1).Value
 			currentWeapon = val, IsWeaponMelee(val)
 		end
 	end)
