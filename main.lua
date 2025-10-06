@@ -393,6 +393,10 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local Method = getnamecallmethod()
     local Arguments = {...}
     local self = Arguments[1]
+	local caller = getcallingscript()
+    if caller and (caller.Name == "MovementController") then
+        return
+    end	
     local chance = CalculateChance(SilentAimSettings.HitChance)
     if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true then
         if Method == "Raycast" then
