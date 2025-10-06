@@ -219,7 +219,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 			Arguments[2] = HitPart.Parent.Head.Position
 			--Arguments[13] = true
 		end
-		return oldNamecall(unpack(Arguments))
+		return oldNamecall(self, unpack(Arguments))
 	end
-    return oldNamecall(...)
+    return oldNamecall(self, ...)
 end))
