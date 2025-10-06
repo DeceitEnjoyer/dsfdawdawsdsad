@@ -421,25 +421,6 @@ end))
 -- hooks
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    --[[local Method = getnamecallmethod()
-    local Arguments = {...}
-    local self = Arguments[1]
-	local caller = getcallingscript()
-    local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not IsCWMelee then
-        if Method == "Raycast" then
-            if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
-                local A_Origin = Arguments[2]
-
-                local HitPart = getClosestPlayer()
-                if HitPart then
-                    Arguments[3] = getDirection(A_Origin, HitPart.Position)
-
-                    return oldNamecall(unpack(Arguments))
-                end
-            end
-        end
-    end]]
 	local NameCallMethod = getnamecallmethod()
 	local Arguments = {...}
 
