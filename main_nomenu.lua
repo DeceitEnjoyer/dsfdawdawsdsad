@@ -3,10 +3,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-if not syn or not protectgui then
-    getgenv().protectgui = function() end
-end
-
 local SilentAimSettings = {
     Enabled = false,
     
@@ -28,7 +24,7 @@ local SilentAimSettings = {
 }
 
 -- variables
-getgenv().SilentAimSettings = Settings
+getgenv().SilentAimSettings = SilentAimSettings
 
 local Camera = workspace.CurrentCamera
 local Players = game:GetService("Players")
@@ -213,25 +209,6 @@ end))
 -- hooks
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    --[[local Method = getnamecallmethod()
-    local Arguments = {...}
-    local self = Arguments[1]
-	local caller = getcallingscript()
-    local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not IsCWMelee then
-        if Method == "Raycast" then
-            if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
-                local A_Origin = Arguments[2]
-
-                local HitPart = getClosestPlayer()
-                if HitPart then
-                    Arguments[3] = getDirection(A_Origin, HitPart.Position)
-
-                    return oldNamecall(unpack(Arguments))
-                end
-            end
-        end
-    end]]
 	local NameCallMethod = getnamecallmethod()
 	local Arguments = {...}
 	local chance = CalculateChance(SilentAimSettings.HitChance)
