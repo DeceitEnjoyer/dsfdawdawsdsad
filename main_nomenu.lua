@@ -234,7 +234,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
     end]]
 	local NameCallMethod = getnamecallmethod()
 	local Arguments = {...}
-
+	local chance = CalculateChance(SilentAimSettings.HitChance)
 	if not checkcaller() and chance == true and not IsCWMelee and tostring(self) == "HitPart" and tostring(NameCallMethod) == "FireServer" then
 		local HitPart = getClosestPlayer()
 		if HitPart then
