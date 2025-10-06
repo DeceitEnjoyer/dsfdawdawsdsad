@@ -14,7 +14,7 @@ local SilentAimSettings = {
     TargetPart = "HumanoidRootPart",
     SilentAimMethod = "Raycast",
     
-    FOVRadius = 130,
+    FOVRadius = 360,
     FOVVisible = false,
     ShowSilentAimTarget = false, 
     
@@ -209,7 +209,26 @@ end))
 -- hooks
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-	local NameCallMethod = getnamecallmethod()
+	local Method = getnamecallmethod()
+    local Arguments = {...}
+    local self = Arguments[1]
+	local caller = getcallingscript()
+    local chance = CalculateChance(SilentAimSettings.HitChance)
+    if self == workspace and not checkcaller() and chance == true and caller.Name == "Client" and not IsCWMelee then
+        if Method == "Raycast" then
+            if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
+                local A_Origin = Arguments[2]
+
+                local HitPart = getClosestPlayer()
+                if HitPart then
+                    Arguments[3] = getDirection(A_Origin, HitPart.Position)
+
+                    return oldNamecall(unpack(Arguments))
+                end
+            end
+        end
+    end
+	--[[local NameCallMethod = getnamecallmethod()
 	local Arguments = {...}
 	local chance = CalculateChance(SilentAimSettings.HitChance)
 	if not checkcaller() and chance == true and not IsCWMelee and tostring(self) == "HitPart" and tostring(NameCallMethod) == "FireServer" then
@@ -221,5 +240,5 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 		end
 		return oldNamecall(self, unpack(Arguments))
 	end
-    return oldNamecall(self, ...)
+    return oldNamecall(self, ...)]]
 end))
