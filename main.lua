@@ -421,7 +421,7 @@ end))
 -- hooks
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
-    local Method = getnamecallmethod()
+    --[[local Method = getnamecallmethod()
     local Arguments = {...}
     local self = Arguments[1]
 	local caller = getcallingscript()
@@ -439,6 +439,18 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
                 end
             end
         end
-    end
+    end]]
+	local NameCallMethod = getnamecallmethod()
+	local Arguments = {...}
+
+	if Toggles.aim_Enabled.Value and not checkcaller() and chance == true and not IsCWMelee and tostring(self) == "HitPart" and tostring(NameCallMethod) == "FireServer" then
+		local HitPart = getClosestPlayer()
+		if HitPart then
+			Arguments[2] = HitPart
+			Arguments[3] = HitPart.Position
+			--Arguments[13] = true
+		end
+		return oldNamecall(unpack(Arguments))
+	end
     return oldNamecall(...)
 end))
