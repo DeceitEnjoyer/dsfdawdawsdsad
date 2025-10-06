@@ -208,7 +208,7 @@ end))
 
 -- hooks
 local oldNamecall
-oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
 	local Method = getnamecallmethod()
     local Arguments = {...}
     local self = Arguments[1]
@@ -228,6 +228,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
             end
         end
     end
+	return oldNamecall(...)
 	--[[local NameCallMethod = getnamecallmethod()
 	local Arguments = {...}
 	local chance = CalculateChance(SilentAimSettings.HitChance)
