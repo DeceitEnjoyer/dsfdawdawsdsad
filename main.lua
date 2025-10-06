@@ -10,7 +10,7 @@ end
 local SilentAimSettings = {
     Enabled = false,
     
-    ClassName = "Universal Silent Aim - Averiias, Stefanuk12, xaxa",
+    ClassName = "Silent Aim - qnwc",
     ToggleKey = "RightAlt",
     
     TeamCheck = false,
@@ -75,6 +75,10 @@ fov_circle.Visible = false
 fov_circle.ZIndex = 999
 fov_circle.Transparency = 1
 fov_circle.Color = Color3.fromRGB(54, 57, 241)
+
+function IsWeaponMelee(Weapon)
+	return game:GetService"ReplicatedStorage".Weapons:FindFirstChild(Weapon):FindFirstChild("Melee") ~= nil
+end
 
 local ExpectedArguments = {
     FindPartOnRayWithIgnoreList = {
