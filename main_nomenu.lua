@@ -174,7 +174,7 @@ local function getClosestPlayer()
         if not OnScreen then continue end
 
         local Distance = (getMousePosition() - ScreenPosition).Magnitude
-        if Distance <= (DistanceToMouse or Options.Radius.Value or 2000) then
+        if Distance <= (DistanceToMouse or 360--[[or 2000]]) then
             Closest = ((false and Character[ValidTargetParts[math.random(1, #ValidTargetParts)]]) or Character["Head"])
             DistanceToMouse = Distance
         end
