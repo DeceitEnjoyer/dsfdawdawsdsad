@@ -394,12 +394,8 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local Arguments = {...}
     local self = Arguments[1]
 	local caller = getcallingscript()
-	print(caller.Name)
-    if caller and (caller.Name == "ControlScript" or caller.Name == "ShiftLockController") then
-        return
-    end
     local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true then
+    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client" then
         if Method == "Raycast" then
             --print(debug.traceback())
             if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
