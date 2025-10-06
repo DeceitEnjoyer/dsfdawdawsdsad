@@ -198,9 +198,9 @@ resume(create(function()
             end
         end
         
-        if Toggles.Visible.Value then 
+        if true then 
             fov_circle.Visible = true
-            fov_circle.Color = Options.Color.Value
+            fov_circle.Color = Color3.new(255,255,255)
             fov_circle.Position = getMousePosition()
         end
     end)
