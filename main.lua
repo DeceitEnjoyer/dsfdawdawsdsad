@@ -221,8 +221,15 @@ local function getDirection(Origin, Position)
     return (Position - Origin).Unit * 1000
 end
 
-local function getMousePosition()
+--[[local function getMousePosition()
     return GetMouseLocation(UserInputService)
+end]]
+
+local function getMousePosition()
+    local viewport = workspace.CurrentCamera.ViewportSize
+    local mouse = UserInputService:GetMouseLocation()
+    local guiInset = game:GetService("GuiService"):GetGuiInset()
+    return Vector2.new(mouse.X, mouse.Y - guiInset.Y)
 end
 
 local function IsPlayerVisible(Player)
