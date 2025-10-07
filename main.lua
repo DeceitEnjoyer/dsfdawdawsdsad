@@ -226,9 +226,9 @@ local function getMousePositionF()
 end
 
 local function getMousePosition()
-    local viewport = workspace.CurrentCamera.ViewportSize
-    local mouse = UserInputService:GetMouseLocation()
-    local guiInset = game:GetService("GuiService"):GetGuiInset()
+    local viewport = Camera.ViewportSize
+    local mouse = getMousePositionF()
+    local guiInset = GuiInset(GuiService)
     return Vector2.new(mouse.X, mouse.Y - guiInset.Y - 2)
 end
 
@@ -433,7 +433,7 @@ oldNamecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local self = Arguments[1]
 	local caller = getcallingscript()
     local chance = CalculateChance(SilentAimSettings.HitChance)
-    if Toggles.aim_Enabled.Value and self == workspace and not checkcaller() and chance == true and caller.Name == "Client"--[[ and not IsCWMelee]] then
+    if not checkcaller() and Toggles.aim_Enabled.Value and self == workspace and chance == true and caller.Name == "Client"--[[ and not IsCWMelee]] then
         if Method == "Raycast" then
             if ValidateArguments(Arguments, ExpectedArguments.Raycast) then
                 local A_Origin = Arguments[2]
