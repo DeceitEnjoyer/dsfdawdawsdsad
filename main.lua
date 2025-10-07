@@ -221,9 +221,9 @@ local function getDirection(Origin, Position)
     return (Position - Origin).Unit * 1000
 end
 
---[[local function getMousePosition()
+local function getMousePositionF()
     return GetMouseLocation(UserInputService)
-end]]
+end
 
 local function getMousePosition()
     local viewport = workspace.CurrentCamera.ViewportSize
@@ -420,7 +420,7 @@ resume(create(function()
         if Toggles.Visible.Value then 
             fov_circle.Visible = Toggles.Visible.Value
             fov_circle.Color = Options.Color.Value
-            fov_circle.Position = getMousePosition()
+            fov_circle.Position = getMousePositionF()
         end
     end)
 end))
