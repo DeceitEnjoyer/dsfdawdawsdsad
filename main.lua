@@ -229,7 +229,7 @@ local function getMousePosition()
     local viewport = workspace.CurrentCamera.ViewportSize
     local mouse = UserInputService:GetMouseLocation()
     local guiInset = game:GetService("GuiService"):GetGuiInset()
-    return Vector2.new(mouse.X, mouse.Y - guiInset.Y)
+    return Vector2.new(mouse.X, mouse.Y - guiInset.Y - 2)
 end
 
 local function IsPlayerVisible(Player)
