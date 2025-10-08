@@ -29,7 +29,7 @@ local SilentAimSettings = {
 
 -- variables
 getgenv().SilentAimSettings = Settings
-local MainFileName = "UniversalSilentAim"
+local MainFileName = "TC2"
 local SelectedFile, FileToSave = "", ""
 
 local Camera = workspace.CurrentCamera
