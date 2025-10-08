@@ -270,7 +270,7 @@ local function getClosestPlayer()
 
         local Distance = (getMousePosition() - ScreenPosition).Magnitude
         if Distance <= (DistanceToMouse or Options.Radius.Value or 2000) then
-            Closest = ((Options.TargetPart.Value == "Random" and Character[Options.TargetPart.Value]) or Character[ValidTargetParts[math.random(1, #ValidTargetParts)]])
+            Closest = ((Options.TargetPart.Value == "Random" and Character[ValidTargetParts[math.random(1, #ValidTargetParts)]]) or Character[Options.TargetPart.Value])
             DistanceToMouse = Distance
         end
     end
