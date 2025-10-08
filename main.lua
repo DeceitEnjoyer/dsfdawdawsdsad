@@ -270,7 +270,7 @@ local function getClosestPlayer()
 
         local Distance = (getMousePosition() - ScreenPosition).Magnitude
         if Distance <= (DistanceToMouse or Options.Radius.Value or 2000) then
-            Closest = ((Options.TargetPart.Value == "Random" and Character[ValidTargetParts[math.random(1, #ValidTargetParts)]]) or Character[Options.TargetPart.Value])
+            Closest = ((Options.TargetPart.Value == "Random" and Character[Options.TargetPart.Value]) or Character[ValidTargetParts[math.random(1, #ValidTargetParts)]])
             DistanceToMouse = Distance
         end
     end
@@ -281,7 +281,7 @@ end
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/Library.lua"))()
 --Library:SetWatermark("github.com/Averiias")
 
-local Window = Library:CreateWindow({Title = 'Universal Silent Aim', Center = true, AutoShow = true, TabPadding = 8, MenuFadeTime = 0.2})
+local Window = Library:CreateWindow({Title = 'Silent Aim', Center = true, AutoShow = true, TabPadding = 8, MenuFadeTime = 0.2})
 local GeneralTab = Window:AddTab("General")
 local MainBOX = GeneralTab:AddLeftTabbox("Main") do
     local Main = MainBOX:AddTab("Main")
@@ -405,7 +405,7 @@ resume(create(function()
     RenderStepped:Connect(function()
         if Toggles.MousePosition.Value and Toggles.aim_Enabled.Value then
             if getClosestPlayer() then 
-                local Root = getClosestPlayer().Parent.PrimaryPart or getClosestPlayer()
+                local Root = getClosestPlayer() or getClosestPlayer().Parent.PrimaryPart
                 local RootToViewportPoint, IsOnScreen = WorldToViewportPoint(Camera, Root.Position);
                 -- using PrimaryPart instead because if your Target Part is "Random" it will flicker the square between the Target's Head and HumanoidRootPart (its annoying)
                 
