@@ -265,7 +265,7 @@ local function getClosestPlayer()
         local Humanoid = FindFirstChild(Character, "Humanoid")
         if not HumanoidRootPart or not Humanoid or Humanoid and Humanoid.Health <= 0 then continue end
 
-        local ScreenPosition, OnScreen = getPositionOnScreen(Character[Options.TargetPart.Value])
+        local ScreenPosition, OnScreen = getPositionOnScreen(Character[Options.TargetPart.Value].Position)
         if not OnScreen then continue end
 
         local Distance = (getMousePosition() - ScreenPosition).Magnitude
